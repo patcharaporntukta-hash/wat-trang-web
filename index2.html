@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="th" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>วัดตรังคภูมิพุทธาวาส</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Sarabun', sans-serif; }
+    html, body { height: 100%; margin: 0; }
+    .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #F4E4BA 50%, #D4AF37 100%); }
+    .text-gold { color: #D4AF37; }
+    .bg-gold { background-color: #D4AF37; }
+    .border-gold { border-color: #D4AF37; }
+    .wood-brown { background-color: #8B4513; }
+    .text-wood { color: #8B4513; }
+    .cream-bg { background-color: #FFF8F0; }
+    .hover-gold:hover { background-color: #B8962E; }
+    .nav-link { transition: all 0.3s ease; }
+    .nav-link:hover { color: #D4AF37; transform: translateY(-2px); }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2); }
+    .fade-in { animation: fadeIn 0.5s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .lotus-pattern { 
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' opacity='0.03'%3E%3Cpath fill='%23D4AF37' d='M50 10c-5 15-20 25-20 40s20 30 20 30 20-15 20-30-15-25-20-40z'/%3E%3C/svg%3E");
+      background-size: 50px 50px;
+    }
+    .scroll-smooth { scroll-behavior: smooth; }
+    
+    /* Siamsee Animation */
+    @keyframes shake {
+      0%, 100% { transform: rotate(0deg) translateX(0); }
+      25% { transform: rotate(-5deg) translateX(-3px); }
+      50% { transform: rotate(5deg) translateX(3px); }
+      75% { transform: rotate(-5deg) translateX(-3px); }
+    }
+    
+    .siamsee-container {
+      animation: shake 0.6s ease-in-out;
+    }
+    
+    .siamsee-stick {
+      width: 3px;
+      height: 120px;
+      background: linear-gradient(to bottom, #D4AF37, #8B4513);
+      margin: 0 auto;
+      border-radius: 2px;
+    }
+    
+    .siamsee-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    .siamsee-modal.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .siamsee-content {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 500px;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+      border: 4px solid #D4AF37;
+    }
+    
+    .siamsee-number {
+      font-size: 48px;
+      font-weight: bold;
+      color: #D4AF37;
+      margin: 20px 0;
+    }
+    
+    .siamsee-result {
+      background: linear-gradient(135deg, #FFF8F0 0%, #FFE4B5 100%);
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      border-left: 4px solid #D4AF37;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full cream-bg lotus-pattern overflow-auto scroll-smooth">
+  <div id="app" class="min-h-full w-full"><!-- Header -->
+   <header id="header" class="bg-white shadow-lg sticky top-0 z-50 border-b-4 border-gold">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+     <div class="text-center mb-4">
+      <h1 id="header-temple-name" class="text-2xl md:text-3xl font-bold text-wood">วัดตรังคภูมิพุทธาวาส</h1>
+      <p id="header-temple-name-en" class="text-gold text-sm md:text-base">temple  Trangkhapum Phutthawat</p>
+     </div><!-- Desktop Navigation -->
+     <nav class="hidden md:flex justify-center space-x-8"><a href="#home" class="nav-link text-wood font-medium hover:text-gold">หน้าหลัก</a> <a href="#about" class="nav-link text-wood font-medium hover:text-gold">เกี่ยวกับวัด</a> <a href="#luangpor" class="nav-link text-wood font-medium hover:text-gold">หลวงพ่อขาว</a> <a href="#abbots" class="nav-link text-wood font-medium hover:text-gold">ประวัติท่านเจ้าอาวาส</a> <a href="#heritage" class="nav-link text-wood font-medium hover:text-gold">มรดกวัฒนธรรม</a> <a href="#calendar" class="nav-link text-wood font-medium hover:text-gold">ปฏิทิน</a> <a href="#donate" class="nav-link text-wood font-medium hover:text-gold">ทำบุญออนไลน์</a> <a href="#map" class="nav-link text-wood font-medium hover:text-gold">แผนที่</a> <a href="#contact" class="nav-link text-wood font-medium hover:text-gold">ติดต่อเรา</a>
+     </nav><!-- Mobile Navigation Toggle -->
+     <div class="md:hidden flex justify-center"><button id="mobile-menu-btn" class="text-wood p-2" onclick="toggleMobileMenu()">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+       </svg></button>
+     </div><!-- Mobile Menu -->
+     <nav id="mobile-menu" class="hidden md:hidden mt-4 space-y-2 text-center"><a href="#home" class="block py-2 text-wood font-medium hover:bg-gold hover:text-white rounded" onclick="toggleMobileMenu()">หน้าหลัก</a> <a href="#about" class="block py-2 text-wood font-medium hover:bg-gold hover:text-white rounded" onclick="toggleMobileMenu()">เกี่ยวกับวัด</a> <a href="#luangpor" class="block py-2 text-wood font-medium hover:bg-gold hover:text-white rounded" onclick="toggleMobileMenu()">หลวงพ่อขาว</a> <a href="#abbots" class="block py-2 text-wood font-medium hover:bg-gold hover:text-white rounded" onclick="toggleMobileMenu()">ลำดับเจ้าอาวาส</a> <a href="#heritage" class="block py-2 text-wood font-medium hover:bg-gold hover:text-white rounded" onclick="toggleMobileMenu()">มรดกวัฒนธรรม</a> <a href="#calendar" class="block py-2 text-wood font-medium hover:bg-gold hover:text-white rounded" onclick="toggleMobileMenu()">ปฏิทิน</a> <a href="#donate" class="block py-2 text-wood font-medium hover:bg-gold hover:text-white rounded" onclick="toggleMobileMenu()">ทำบุญออนไลน์</a> <a href="#map" class="block py-2 text-wood font-medium hover:bg-gold hover:text-white rounded" onclick="toggleMobileMenu()">แผนที่</a> <a href="#contact" class="block py-2 text-wood font-medium hover:bg-gold hover:text-white rounded" onclick="toggleMobileMenu()">ติดต่อเรา</a>
+     </nav>
+    </div>
+   </header><!-- Section 1: Home -->
+   <section id="home" class="py-16 md:py-24 fade-in">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+     <div class="mb-8"><!-- Lotus Icon -->
+      <svg class="w-24 h-24 mx-auto text-gold mb-6" viewbox="0 0 100 100" fill="currentColor"><path d="M50 15c-3 10-15 20-15 35s15 25 15 25 15-10 15-25-12-25-15-35z" /> <path d="M30 40c-10 5-20 15-15 30 5-10 20-15 30-20-5-5-10-8-15-10z" opacity="0.7" /> <path d="M70 40c10 5 20 15 15 30-5-10-20-15-30-20 5-5 10-8 15-10z" opacity="0.7" /> <path d="M20 55c-8 8-10 20 0 30 0-15 15-20 25-25-10-2-18-3-25-5z" opacity="0.5" /> <path d="M80 55c8 8 10 20 0 30 0-15-15-20-25-25 10-2 18-3 25-5z" opacity="0.5" />
+      </svg>
+     </div>
+     <h2 id="home-temple-name" class="text-4xl md:text-6xl font-bold text-wood mb-4">วัดตรังคภูมิพุทธาวาส</h2>
+     <p id="home-temple-name-en" class="text-xl md:text-2xl text-gold mb-8">temple Trangkhapum Phutthawat</p>
+     <div class="w-32 h-1 gold-gradient mx-auto mb-12 rounded-full"></div><!-- History Preview -->
+     <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 max-w-4xl mx-auto card-hover border border-gold/20">
+      <h3 class="text-2xl font-bold text-wood mb-6 flex items-center justify-center gap-3">
+       <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+       </svg> ประวัติความเป็นมา</h3>
+      <p class="text-gray-600 leading-relaxed text-lg">ประวัติและความเป็นมาวัดนี้สร้างขึ้นใน สมัยรัชกาลที่ 5 (ประมาณ พ.ศ. 2436) โดย พระยารัษฎานุประดิษฐ์มหิศรภักดี (คอซิมบี๊ ณ ระนอง) ซึ่งในสมัยนั้นเจ้าเมืองตรังได้ย้ายหัวเมืองมาตั้งที่กันตัง จึงได้ตั้งวัดขึ้นพร้อมกับการพัฒนาตัวเมืองในครั้งนั้น โดยตั้งชื่อแรกว่า "วัดกันตัง" ตามชื่อเมืองและตำบลที่ตั้งของวัด
+		</p><a href="#about" class="inline-block mt-6 px-6 py-3 bg-gold text-white rounded-full font-medium hover-gold transition-all"> อ่านเพิ่มเติม → </a>
+     </div>
+    </div>
+   </section><!-- Section 2: About -->
+   <section id="about" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-wood mb-4">เกี่ยวกับวัด</h2>
+      <div class="w-24 h-1 gold-gradient mx-auto rounded-full"></div>
+     </div>
+     <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-8 border border-gold/20">
+       <h3 class="text-xl font-bold text-wood mb-4">ประวัติวัด</h3>
+       <p class="text-gray-600 leading-relaxed mb-4">วัดได้รับการขึ้นทะเบียนเป็น โบราณสถานโดยกรมศิลปากร ตั้งแต่วันที่ 9 เมษายน พ.ศ. 2544  บ่งบอกถึงคุณค่าทางประวัติศาสตร์และวัฒนธรรมของวัดแห่งนี้
+        ปัจจุบันวัดยังดำเนินกิจกรรมทางศาสนา เป็นศูนย์กลางในการทำบุญ และมีพระสงฆ์จำพรรษาอยู่หลายรูป รวมทั้งเป็นที่จัดงานทอดกฐินและกิจกรรมชุมชนอยู่เป็นประจำ   วัดตรังคภูมิพุทธาวาส ตั้งอยู่ในพื้นที่ที่มีความอุดมสมบูรณ์ทางธรรมชาติ เป็นสถานที่ปฏิบัติธรรมและเผยแผ่พระพุทธศาสนามาอย่างยาวนาน ภายในวัดมีสิ่งก่อสร้างที่งดงามและมีคุณค่าทางศิลปกรรม</p>
+       <p class="text-gray-600 leading-relaxed">วัดเปิดให้ประชาชนเข้ามาสักการะและปฏิบัติธรรมได้ทุกวัน พร้อมทั้งจัดกิจกรรมทางศาสนาตลอดทั้งปี</p>
+      </div>
+      <div class="bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl h-80 overflow-hidden flex items-center justify-center border-4 border-gold/30">
+       <img id="temple-image" src="c:\Users\sakdi\Downloads\การตลาด  ตุ๊กตา 6014\bootstrap\6.png.png" alt="วัดตรังคภูมิพุทธาวาส" class="w-full h-full object-cover">
+      </div>
+     </div>
+    </div>
+   </section><!-- Section 3: Luang Por Khao -->
+   <section id="luangpor" class="py-16 cream-bg">
+    <div class="max-w-7xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-wood mb-4">หลวงพ่อขาว</h2>
+      <div class="w-24 h-1 gold-gradient mx-auto rounded-full"></div>
+     </div>
+     <div class="grid md:grid-cols-2 gap-8 items-start"><!-- Image Frame -->
+      <div class="order-2 md:order-1">
+       <div class="bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl p-4 border-4 border-gold shadow-xl">
+        <div class="bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl h-96 overflow-hidden flex items-center justify-center">
+         <img id="12.jpg" src="c:\Users\sakdi\Downloads\การตลาด  ตุ๊กตา 6014\bootstrap\12.jpg.jpg" alt="หลวงพ่อขาว" class="w-full h-full object-cover">
+        </div>
+       </div>
+      </div><!-- Content -->
+      <div class="order-1 md:order-2">
+       <div class="bg-white rounded-2xl shadow-xl p-8 border border-gold/20 card-hover">
+        <h3 class="text-2xl font-bold text-wood mb-4 flex items-center gap-3">
+         <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+         </svg> ประวัติหลวงพ่อขาว</h3>
+        <p class="text-gray-600 leading-relaxed mb-4">พระพุทธรูปสำคัญประจำวัดตรังคภูมิพุทธาวาส
+
+หลวงพ่อขาว เป็นพระพุทธรูปประธานภายในอุโบสถ สร้างด้วย หินอ่อน ปางมารวิชัย หน้าตักกว้างประมาณ 43 นิ้ว มีลักษณะเด่นคือสีขาวของเนื้อหินอ่อนทั้งองค์
+
+องค์พระถูกอัญเชิญมาจาก เมืองปีนัง ประเทศมาเลเซีย เมื่อกว่า 100 ปีที่ผ่านมา และเป็นศูนย์รวมศรัทธาของพุทธศาสนิกชนในชุมชน
+
+ชื่อ "หลวงพ่อขาว" เป็นชื่อที่ชาวบ้านเรียกขานด้วยความเคารพ ตามลักษณะสีขาวขององค์พระ </p>
+        <p class="text-gray-600 leading-relaxed mb-4">พุทธศาสนิกชนนิยมมากราบไหว้ขอพรเพื่อความเป็นสิริมงคล โดยเฉพาะในวันสำคัญทางศาสนาจะมีผู้มาสักการะเป็นจำนวนมาก</p>
+        <div class="bg-amber-50 rounded-lg p-4 border-l-4 border-gold">
+         <p class="text-wood font-medium">🙏 เปิดให้สักการะได้ทุกวัน</p>
+         <p class="text-gray-600 text-sm">เวลา 06:00 - 18:00 น.</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Section 4: Abbots -->
+   <section id="abbots" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-wood mb-4">ประวัติท่านเจ้าอาวาส วัดตรังคภูมิพุทธาวาส</h2>
+      <p class="text-gold text-lg">สืบทอดพระพุทธศาสนา</p>
+      <div class="w-24 h-1 gold-gradient mx-auto mt-4 rounded-full"></div>
+     </div>
+     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"><!-- Abbot 1 -->
+      <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 text-center card-hover border border-gold/20">
+       <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gold">
+        <img id="abbot1-image" src="c:\Users\sakdi\Downloads\การตลาด  ตุ๊กตา 6014\bootstrap\17.jpg.jpg" alt="พระครู บริสุทธิ์ศีลาจารย์ฑิสังฆปาโมกข์ (หลวงปู่ลบ)" class="w-full h-full object-cover">
+       </div>
+       <div class="bg-gold text-white text-sm px-3 py-1 rounded-full inline-block mb-3">
+        รูปที่ 1
+       </div>
+       <h4 class="font-bold text-wood mb-2">พระครู บริสุทธิ์ศีลาจารย์ฑิสังฆปาโมกข์ (หลวงปู่ลบ)</h4>
+       <p class="text-gray-500 text-sm">เจ้าอาวาสรูปแรกของวัด ตั้งแต่ พ.ศ. 2436 – 2469</p>
+       <p class="text-gray-600 text-sm mt-2">มีบทบาทสำคัญในการฟื้นฟูงานปฏิสังขรณ์วัดและเผยแพร่พระพุทธศาสนาในเขตกันตังจัดตั้งโรงเรียนประชาบาลภายในบริเวณวัด เพื่อให้การศึกษาสำหรับเยาวชนและพระภิกษุสามเณร</p>
+      </div><!-- Abbot 2 -->
+      <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 text-center card-hover border border-gold/20">
+       <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gold">
+        <img id="abbot2-image" src="c:\Users\sakdi\Downloads\การตลาด  ตุ๊กตา 6014\bootstrap\20.jpg.jpg" alt="พระวินัยธรตุด" class="w-full h-full object-cover">
+       </div>
+       <div class="bg-gold text-white text-sm px-3 py-1 rounded-full inline-block mb-3">
+        รูปที่ 2
+       </div>
+       <h4 class="font-bold text-wood mb-2">พระวินัยธรตุด</h4>
+       <p class="text-gray-500 text-sm">เจ้าอาวาส พ.ศ. 2469 – 2484 </p>
+       <p class="text-gray-600 text-sm mt-2">ประวัติและผลงานสำคัญ
+พระวินัยธรตุด ดำรงตำแหน่งเจ้าอาวาสต่อจากหลวงปู่ลบ ในช่วงเวลาที่วัดกำลังพัฒนาและขยายบทบาทในชุมชน</p>
+      </div><!-- Abbot 3 -->
+      <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 text-center card-hover border border-gold/20">
+       <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gold">
+        <img id="abbot3-image" src="c:\Users\sakdi\Downloads\การตลาด  ตุ๊กตา 6014\bootstrap\15.jpg.jpg" alt="พระครูวิศาลศีลคุณ (รุ่ง พุทธิรังสมหาเถระ)" class="w-full h-full object-cover">
+       </div>
+       <div class="bg-gold text-white text-sm px-3 py-1 rounded-full inline-block mb-3">
+        รูปที่ 3
+       </div>
+       <h4 class="font-bold text-wood mb-2">พระครูวิศาลศีลคุณ</h4>
+       <h4 class="font-bold text-wood mb-2">(รุ่ง พุทธิรังสมหาเถระ)</h4>
+       <p class="text-gray-500 text-sm">เจ้าอาวาส พ.ศ. 2484 – 2542 </p>
+       <p class="text-gray-600 text-sm mt-2">เจ้าอาวาสที่มีบทบาทสำคัญอย่างยิ่งต่อการพัฒนาวัดท่านได้รับพระราชทานสมณศักดิ์เป็น พระครูวิศาลศีลคุณ และได้รับความไว้วางใจให้ดำรงตำแหน่ง เจ้าคณะอำเภอกันตัง ทำหน้าที่ดูแลกิจการคณะสงฆ์ในระดับอำเภอ</p>
+      </div><!-- Abbot 4 (Current) -->
+      <div class="bg-gradient-to-br from-gold/20 to-amber-100 rounded-2xl p-6 text-center card-hover border-2 border-gold shadow-lg">
+       <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gold ring-4 ring-gold/30">
+        <img id="abbot4-image" src="c:\Users\sakdi\Downloads\การตลาด  ตุ๊กตา 6014\bootstrap\19.jpg.jpg" alt="พระครูถาวรศีลวัฒน์ (ประดับ ถาวรสีโล)" class="w-full h-full object-cover">
+       </div>
+       <div class="bg-wood text-white text-sm px-3 py-1 rounded-full inline-block mb-3">
+        รูปที่ 4 (ปัจจุบัน)
+       </div>
+       <h4 class="font-bold text-wood mb-2">พระครูถาวรศีลวัฒน์</h4>
+       <h4 class="font-bold text-wood mb-2">(ประดับ ถาวรสีโล)</h4>
+       <p class="text-gray-500 text-sm">เจ้าอาวาส ตั้งแต่ พ.ศ. 2542 – ปัจจุบัน</p>
+       <p class="text-gray-600 text-sm mt-2">ประวัติและผลงานสำคัญ
+พระครูถาวรศีลวัฒน์ (ประดับ ถาวรสีโล) เป็นเจ้าอาวาสวัดตรังคภูมิพุทธาวาสในยุคปัจจุบัน ท่านเป็นที่เคารพศรัทธาของพุทธศาสนิกชนในฐานะพระอาจารย์และผู้นำทางจิตใจของชุมชน</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Section 5: Heritage -->
+   <section id="heritage" class="py-16 cream-bg">
+    <div class="max-w-7xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-wood mb-4">มรดกวัฒนธรรม</h2>
+      <p class="text-gold">สำรวจสิ่งสำคัญภายในวัด</p>
+      <div class="w-24 h-1 gold-gradient mx-auto mt-4 rounded-full"></div>
+     </div>
+     <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-6"><!-- 1. อุโบสถ --> <button onclick="showHeritagePage('ubosot')" class="bg-white rounded-2xl p-6 text-center card-hover border border-gold/20 group cursor-pointer">
+       <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center group-hover:scale-110 transition-transform border-2 border-gold/30">
+        <svg class="w-10 h-10 text-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3L2 9l10 6 10-6-10-6z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M2 17l10 6 10-6" /> <path stroke-linecap="round" stroke-linejoin="round" d="M2 13l10 6 10-6" />
+        </svg>
+       </div><h4 class="font-bold text-wood group-hover:text-gold transition-colors">อุโบสถ</h4><p class="text-gray-500 text-sm mt-2">สถาปัตยกรรมงดงาม</p></button> <!-- 2. ช้างสิงขร --> <button onclick="showHeritagePage('elephant')" class="bg-white rounded-2xl p-6 text-center card-hover border border-gold/20 group cursor-pointer">
+       <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center group-hover:scale-110 transition-transform border-2 border-gold/30">
+        <svg class="w-10 h-10 text-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12c0-4-3-8-8-8s-8 4-8 8c0 2 1 4 2 5v3h2v-2h8v2h2v-3c1-1 2-3 2-5z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M16 12h.01" /> <path stroke-linecap="round" stroke-linejoin="round" d="M6 8c-1 0-2 1-2 2v2" /> <path stroke-linecap="round" stroke-linejoin="round" d="M18 8c1 0 2 1 2 2v2" />
+        </svg>
+       </div><h4 class="font-bold text-wood group-hover:text-gold transition-colors">ช้างสิงขร</h4><p class="text-gray-500 text-sm mt-2">สัญลักษณ์มงคล</p></button> <!-- 3. ติ้วเซียมซี --> <button onclick="showSiamseeModal()" class="bg-white rounded-2xl p-6 text-center card-hover border border-gold/20 group cursor-pointer">
+       <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center group-hover:scale-110 transition-transform border-2 border-gold/30">
+        <svg class="w-10 h-10 text-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" /> <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v6M9 12l3 3 3-3" />
+        </svg>
+       </div><h4 class="font-bold text-wood group-hover:text-gold transition-colors">เซียมซี</h4><p class="text-gray-500 text-sm mt-2">เสี่ยงทายโชคชะตา</p></button> <!-- 4. คาเฟ่วัด --> <button onclick="showHeritagePage('cafe')" class="bg-white rounded-2xl p-6 text-center card-hover border border-gold/20 group cursor-pointer">
+       <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center group-hover:scale-110 transition-transform border-2 border-gold/30">
+        <svg class="w-10 h-10 text-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 10h.01M10 10h.01M12 14c1.5 0 2.5-1 2.5-1s-1 1.5-2.5 1.5S9.5 13 9.5 13s1 1 2.5 1z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-1.5 0-3 1-3 2.5 0 1 .5 1.5 1 2-.5.5-1 1.5-1 2.5 0 2 2 4 3 5 1-1 3-3 3-5 0-1-.5-2-1-2.5.5-.5 1-1 1-2C15 4 13.5 3 12 3z" /> <circle cx="7" cy="6" r="2" /> <circle cx="17" cy="6" r="2" />
+        </svg>
+        </div><h4 class="font-bold text-wood group-hover:text-gold transition-colors">คาเฟ่วัด</h4><p class="text-gray-500 text-sm mt-2">มองดูบัว</p></button> <!-- 5. มรดกวัฒนธรรม --> <button onclick="showHeritagePage('heritage_item')" class="bg-white rounded-2xl p-6 text-center card-hover border border-gold/20 group cursor-pointer">
+       <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center group-hover:scale-110 transition-transform border-2 border-gold/30">
+        <svg class="w-10 h-10 text-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" /> <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3" />
+        </svg>
+       </div><h4 class="font-bold text-wood group-hover:text-gold transition-colors">มรดกวัฒนธรรม</h4><p class="text-gray-500 text-sm mt-2">ศิลปะและประเพณี</p></button>
+     </div>
+    </div>
+   </section><!-- Heritage Sub-pages (Hidden by default) -->
+   <section id="heritage-detail" class="py-16 bg-white hidden">
+    <div class="max-w-5xl mx-auto px-4"><button onclick="hideHeritagePage()" class="mb-6 px-4 py-2 bg-gold text-white rounded-lg hover-gold transition-all flex items-center gap-2">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg> กลับ </button>
+     <div id="heritage-content" class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-8 border border-gold/20"><!-- Dynamic content will be inserted here -->
+     </div>
+    </div>
+   </section>
+
+   <!-- Siamsee Modal -->
+   <div id="siamsee-modal" class="siamsee-modal">
+    <div class="siamsee-content">
+     <h2 class="text-3xl font-bold text-wood mb-6">🎋 เซียมซี 🎋</h2>
+     <p class="text-gray-600 mb-6">ตั้งจิตอธิษฐานและคลิกเขย่ากระบอก</p>
+     
+     <div class="mb-8">
+      <button onclick="shakeSimsee()" class="siamsee-container w-32 h-40 mx-auto bg-gradient-to-b from-red-600 to-red-700 rounded-lg shadow-lg flex flex-col items-center justify-center cursor-pointer hover:shadow-xl transition-shadow">
+       <div class="siamsee-stick mb-4"></div>
+       <div class="text-white font-bold text-sm">คลิกเขย่า</div>
+      </button>
+     </div>
+     
+     <div id="siamsee-result" class="hidden">
+      <div class="siamsee-number" id="siamsee-number">1</div>
+      <div class="siamsee-result">
+       <p id="siamsee-text" class="text-gray-700 font-medium"></p>
+       <p id="siamsee-desc" class="text-gray-600 text-sm mt-3 leading-relaxed"></p>
+      </div>
+      <button onclick="resetSimsee()" class="mt-6 px-6 py-2 bg-gold text-white rounded-lg hover-gold transition-all">
+       เขย่าอีกครั้ง
+      </button>
+     </div>
+     
+     <button onclick="closeSiamseeModal()" class="mt-8 px-6 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition-all">
+      ปิด
+     </button>
+    </div>
+   </div>
+
+   <!-- Section 6: Calendar -->
+   <section id="calendar" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-wood mb-4">ปฏิทินกิจกรรม</h2>
+      <div class="w-24 h-1 gold-gradient mx-auto rounded-full"></div>
+     </div>
+     <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 md:p-8 border border-gold/20"><!-- Calendar Header -->
+      <div class="flex items-center justify-between mb-6"><button onclick="changeMonth(-1)" class="p-2 rounded-full hover:bg-gold/20 transition-colors">
+        <svg class="w-6 h-6 text-wood" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg></button>
+       <h3 id="calendar-month" class="text-xl md:text-2xl font-bold text-wood">มกราคม 2568</h3><button onclick="changeMonth(1)" class="p-2 rounded-full hover:bg-gold/20 transition-colors">
+        <svg class="w-6 h-6 text-wood" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg></button>
+      </div><!-- Days of Week -->
+      <div class="grid grid-cols-7 gap-2 mb-4">
+       <div class="text-center font-bold text-red-500 text-sm md:text-base">อา</div>
+       <div class="text-center font-bold text-wood text-sm md:text-base">จ</div>
+       <div class="text-center font-bold text-wood text-sm md:text-base">อ</div>
+       <div class="text-center font-bold text-wood text-sm md:text-base">พ</div>
+       <div class="text-center font-bold text-wood text-sm md:text-base">พฤ</div>
+       <div class="text-center font-bold text-wood text-sm md:text-base">ศ</div>
+       <div class="text-center font-bold text-blue-500 text-sm md:text-base">ส</div>
+      </div><!-- Calendar Grid -->
+      <div id="calendar-grid" class="grid grid-cols-7 gap-2"><!-- Calendar days will be generated by JavaScript -->
+      </div><!-- Events Legend -->
+      <div class="mt-6 pt-6 border-t border-gold/30">
+       <h4 class="font-bold text-wood mb-4">กิจกรรมประจำเดือน:</h4>
+       <div id="events-list" class="space-y-2"><!-- Events will be generated by JavaScript -->
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Section 7: Donate -->
+   <section id="donate" class="py-16 cream-bg">
+    <div class="max-w-3xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-wood mb-4">ร่วมศรัทธาธรรมออนไลน์</h2>
+      <p class="text-gold">ร่วมเป็นส่วนหนึ่งในการสมทบทุนเเละทำนุบำรุงวัด</p>
+      <div class="w-24 h-1 gold-gradient mx-auto mt-4 rounded-full"></div>
+     </div>
+     <div class="bg-white rounded-2xl shadow-xl p-8 border border-gold/20">
+      <div class="text-center mb-8">
+       <svg class="w-16 h-16 mx-auto text-gold mb-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+       </svg>
+       <p class="text-gray-600">ร่วมสมทบทุนผ่านบัญชีธนาคาร</p>
+      </div><!-- Bank Account -->
+      <div class="bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl p-6 border-2 border-gold">
+       <div class="text-center">
+        <div class="flex items-center justify-center gap-3 mb-4">
+         <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">KTB</div>
+         <span class="text-xl font-bold text-wood">ธนาคารกรุงไทย</span>
+        </div>
+        <p class="text-gray-500 mb-1">ชื่อบัญชี:</p>
+        <p class="text-xl font-bold text-wood mb-4">วัดตรังคภูมิพุทธาวาส</p>
+        <p class="text-gray-500 mb-1">เลขที่บัญชี:</p>
+        <p class="text-3xl font-bold text-gold tracking-wider">904-1-12345-6</p>
+       </div>
+      </div>
+      <p class="text-center text-gray-400 text-sm mt-6">เมื่อโอนเงินแล้ว ท่านสามารถส่งสลิปการโอนเงินได้ที่สำนักงานวัด</p>
+     </div>
+    </div>
+   <!-- Section 8: Map -->
+        <section id="map" class="py-16 cream-bg">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-wood mb-4">แผนที่และเส้นทาง</h2>
+                    <div class="w-24 h-1 gold-gradient mx-auto rounded-full"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Navigation Map -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gold/20">
+                        <h3 class="bg-gold text-white p-4 font-bold">🗺️ แผนที่นำทางมายังวัด</h3>
+                        <div class="h-80 bg-gray-200 flex items-center justify-center">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d62965.76!2d99.5134114!3d7.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e0!4m0!4m5!1s0x304f9b5b5b5b5b5b%3A0x7e1b2e3f4a5b6c7d!2z4Lin4Lix4LiU4LiB4LiB4Liy4Lij4Lio4Liy4LiU4Lio4Liy4LiU4Lio4Liy4LiU!3m2!1d7.4116566!2d99.5134114!5e0!3m2!1sth!2sth!4v1700000000001" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="p-3 bg-amber-50 border-t border-gold/20 flex items-center gap-3">
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%95%E0%B8%A3%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%E0%B8%9E%E0%B8%B8%E0%B8%97%E0%B8%98%E0%B8%B2%E0%B8%A7%E0%B8%B2%E0%B8%AA+%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B8%95%E0%B8%B1%E0%B8%87+%E0%B8%95%E0%B8%A3%E0%B8%B1%E0%B8%87&destination_place_id=ChIJAQAAAAAAAAAAAAAAAAAAAA" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-gold text-white rounded-full text-sm font-medium hover-gold transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                เปิดเส้นทางใน Google Maps
+                            </a>
+                            <span class="text-gray-500 text-sm">วัดตรังคภูมิพุทธาวาส ต.กันตัง อ.กันตัง จ.ตรัง</span>
+                        </div>
+                    </div>
+
+                    <!-- Recycle Map Navigation -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gold/20">
+                        <h3 class="bg-gold text-white p-4 font-bold">♻️ จุดทิ้งขยะรีไซเคิลในวัด</h3>
+                        <div class="h-80 bg-gray-200 flex items-center justify-center">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d31659.23!2d99.5246917!3d7.409859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x304f9a4e3e3e3e3f%3A0x0!2z4Lin4Lix4LiU4LiB4LiB4Liy4Lij!3m2!1d7.4116566!2d99.5134114!4m5!1s0x304f9b5b5b5b5b5b%3A0x7e1b2e3f4a5b6c7d!2z7.409859,99.5246917!3m2!1d7.409859!2d99.5246917!5e0!3m2!1sth!2sth!4v1700000000002" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="p-3 bg-amber-50 border-t border-gold/20">
+                            <div class="space-y-2">
+                                <a href="https://www.google.com/maps/dir/?api=1&origin=7.4116566,99.5134114&destination=7.409859,99.5246917&waypoints=7.4096982,99.5253446" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-gold text-white rounded-full text-sm font-medium hover-gold transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                    จุดทิ้งขยะเเละขวดพลาสติก
+                                </a>
+                                <p class="text-gray-600 text-xs mt-2">📄 จุดที่ 1: 7.409859, 99.5246917 | จุดที่ 2: 7.4096982, 99.5253446</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- Section 9: Contact -->
+   <section id="contact" class="py-16 cream-bg">
+    <div class="max-w-5xl mx-auto px-4">
+     <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-wood mb-4">ติดต่อเรา</h2>
+      <div class="w-24 h-1 gold-gradient mx-auto rounded-full"></div>
+     </div>
+     <div class="grid md:grid-cols-2 gap-8"><!-- Phone -->
+      <div class="bg-white rounded-2xl shadow-xl p-8 text-center card-hover border border-gold/20">
+       <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center">
+        <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-wood mb-2">เบอร์ติดต่อ</h3>
+       <p id="contact-phone" class="text-2xl font-bold text-gold">075-251-240</p>
+       <p class="text-gray-500 text-sm mt-2">เปิดทำการ: 08:00 - 17:00 น.</p>
+      </div><!-- Address -->
+      <div class="bg-white rounded-2xl shadow-xl p-8 text-center card-hover border border-gold/20">
+       <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center">
+        <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-wood mb-2">ที่อยู่</h3>
+       <p id="contact-address" class="text-gray-600 leading-relaxed">วัดตรังคภูมิพุทธาวาส<br>
+         วัดตรังคภูมิพุทธาวาส (วัดตรังคภูมิพุทธาวาส) : ต.กันตัง อ.กันตัง จ.ตรัง 92110 <br>
+         Kantang, Kantang, Trang 92110</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="wood-brown py-8 text-white">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+     <div class="mb-4">
+      <svg class="w-12 h-12 mx-auto text-gold" viewbox="0 0 100 100" fill="currentColor"><path d="M50 15c-3 10-15 20-15 35s15 25 15 25 15-10 15-25-12-25-15-35z" /> <path d="M30 40c-10 5-20 15-15 30 5-10 20-15 30-20-5-5-10-8-15-10z" opacity="0.7" /> <path d="M70 40c10 5 20 15 15 30-5-10-20-15-30-20 5-5 10-8 15-10z" opacity="0.7" />
+      </svg>
+     </div>
+     <p id="footer-temple-name" class="font-bold text-lg mb-2">วัดตรังคภูมิพุทธาวาส</p>
+     <p class="text-amber-200 text-sm">สงวนลิขสิทธิ์</p>
+    </div>
+   </footer>
+  </div>
+
+  <script>
+    // Siamsee Data
+    const siamseeData = [
+            { number: 1, text: "ฟ้าสางกระจ่างใส", "desc": "เปรียบดังอาทิตย์ขึ้นยามเช้า ขจัดความมืดมน สิ่งที่มุ่งหวังจะสำเร็จผล การงานก้าวหน้า คนเมตตาช่วยเหลือ" },
+            { number: 2, text: "บัวเหนือน้ำ", "desc": "พ้นจากอุปสรรคทั้งปวง เปรียบดั่งบัวพ้นน้ำรับแสงตะวัน ลาภลอยมีมาหา สุขภาพแข็งแรงดี"},
+            { number: 3, text: "ฝนตกต้องตามฤดูกาล", "desc": "ความอุดมสมบูรณ์กำลังมาเยือน สิ่งที่ลงทุนไปจะผลิดอกออกผล คนโสดจะพบเนื้อคู่ที่เกื้อกูลกัน"},
+            { number: 4, text: "ลมพัดพาโชค", "desc": "มีข่าวดีจากทางไกล การเจรจาค้าขายราบรื่นดีมาก หากมีคดีความจะชนะด้วยความเป็นธรรม"},
+            { number: 5, text: "นกบินกลับรัง", "desc": "ความสงบสุขในครอบครัวคือลาภอันประเสริฐ อย่าเพิ่งเร่งรีบทำการใหญ่ ให้ค่อยเป็นค่อยไปจะดีกว่า"},
+            { number: 6, text: "มุกในเปลือกหอย", "desc": "ของดีต้องใช้เวลาค้นหา ความสำเร็จอยู่ไม่ไกลเพียงต้องใช้ความอดทน การเงินจะค่อยๆ ดีขึ้นตามลำดับ"},
+            { number: 7, text: "ม้าศึกพักรบ", "desc": "ช่วงเวลาแห่งการพักผ่อนและทบทวน อย่าฝืนทำสิ่งที่เกินกำลัง สุขภาพต้องดูแลเป็นพิเศษ"},
+            { number: 8, text: "จันทร์เต็มดวง", "desc": "สว่างไสวไปทั่วทิศ ครอบครัวอยู่เย็นเป็นสุข มีเกณฑ์ได้ลาภจากผู้ใหญ่ที่เคารพรัก"},
+            { number: 9, text: "ต้นไม้ใหญ่แผ่กิ่งก้าน", "desc": "เป็นที่พึ่งพาของผู้อื่น บารมีเพิ่มพูน การงานมั่นคงถาวร บริวารให้ความร่วมมือดี"},
+            { number: 10, text: "จิตใจสงบพบทางออกของปัญหา การเจรจาประนีประนอมจะสำเร็จผลดี ความรักราบรื่นเข้าใจกัน"},
+            { number: 11, text: "สะพานเชื่อมสัมพันธ์", "desc": "มิตรสหายนำโชคมาให้ การขยายธุรกิจหรือเริ่มงานใหม่จะไปได้สวย มีเกณฑ์เดินทางไกล"},
+            { number: 12, text: "ทองคำในกองทราย", "desc": "ต้องใช้ความเพียรพยายามจึงจะพบสมบัติล้ำค่า อย่าท้อถอยกับอุปสรรคเล็กน้อย ความสำเร็จรออยู่"},
+            { number: 13, text: "นกกระเรียนคู่วิวาห์", "desc": "มงคลชีวิตมาถึงแล้ว ความรักสมหวังครองคู่ยืนยาว การเงินไหลมาเทมาไม่ขาดสาย"},
+            { number: 14, text: "ขุนเขาตระหง่าน", "desc": "ความมั่นคงในหน้าที่การงานดีเยี่ยม ไม่มีใครทำอันตรายคุณได้ เพียงรักษาศีลธรรมให้มั่น"},
+            { number: 15, text: "เมฆบังจันทร์", "desc": "ช่วงนี้อาจมีเรื่องขุ่นมัวใจ ให้ระวังคำพูดและการตัดสินใจชั่ววูบ รอให้เมฆผ่านไปแล้วจะดีเอง"},
+            { number: 16, text: "ปลาคาร์ฟกระโดดข้ามประตูมังกร", "desc": "การเปลี่ยนแปลงครั้งใหญ่สู่สิ่งที่ดีกว่า มีโอกาสเลื่อนขั้นเลื่อนตำแหน่ง หรือสอบแข่งขันได้สำเร็จ"},
+            { number: 17, text: "ดอกไม้บานรับวสันต์", "desc": "โชคลาภด้านความรักและเมตตามหานิยมโดดเด่น ใครเห็นก็รักใคร่เอ็นดู การค้าขายคล่องตัว"},
+            { number: 18, text: "เรือใบแล่นลม", "desc": "ทุกอย่างเป็นไปตามแผนที่วางไว้ มีผู้อุปถัมภ์ค้ำชูในยามยาก การเงินมีใช้ไม่ขัดสน"},
+            { number: 19, text: "แสงเทียนส่องทาง", "desc": "จะพบทางสว่างในปัญหาที่มืดมน มีผู้รู้หรือกัลยาณมิตรชี้แนะแนวทางที่ถูกต้องให้"},
+            { number: 20, text: "รวงข้าวสุกงอม", "desc": "ถึงเวลาเก็บเกี่ยวผลผลิตจากการทำงานหนัก ความมั่งคั่งกำลังมาเยือน สุขกายสบายใจ"},
+            { number: 21, text: "สิงโตคำราม", "desc": "อำนาจวาสนาบารมีโดดเด่น จะได้รับเกียรติยศชื่อเสียง แต่ต้องระวังความใจร้อนของตนเอง"},
+            { number: 22, text: "นกพิราบสื่อสาร", "desc": "ได้รับข่าวดีที่รอคอยมานาน การติดต่อประสานงานราบรื่น มีโชคจากการเจรจา"},
+            { number: 23, text: "เพชรแท้ไม่แพ้ไฟ", "desc": "ความดีที่คุณทำมาจะคุ้มครองคุณจากคนคิดร้าย ยิ่งถูกทดสอบยิ่งแข็งแกร่งและสง่างาม"},
+            { number: 24, text: "สายรุ้งหลังฝน", "desc": "ความทุกข์กำลังจะผ่านไป ความสุขสดใสกำลังจะเข้ามาแทนที่ เริ่มต้นใหม่ได้เลยตอนนี้"},
+            { number: 25, text: "กระดิ่งทองกังวาน", "desc": "ชื่อเสียงโด่งดังขจรขจาย มีคนยกย่องยอมรับในความสามารถ การเงินเดินสะพัดดีมาก"},
+            { number: 26, text: "ต้นไผ่ลู่ลม", "desc": "รู้จักปรับตัวตามสถานการณ์จะทำให้รอดพ้นภัยพิบัติ อย่าดึงดันเกินไป ความอ่อนน้อมจะชนะทุกสิ่ง"},
+            { number: 27, text: "ตะวันเที่ยงตรง", "desc": "ดวงชะตารุ่งโรจน์ถึงขีดสุด ทำอะไรก็ประสบความสำเร็จ แต่อย่าประมาทเมื่ออยู่บนที่สูง"},
+            { number: 28, text: "มรดกล้ำค่า", "desc": "มีเกณฑ์ได้รับโชคลาภก้อนใหญ่ หรือมรดกจากบรรพบุรุษ ชีวิตบั้นปลายจะสุขสบายไร้กังวล"}
+        ];
+    // Default configuration
+    const defaultConfig = {
+      temple_name: 'วัดตรังคภูมิพุทธาวาส',
+      temple_name_en: 'Wat Trangkhapum Phutthawat',
+      contact_phone: '075-251-240',
+      contact_address: 'วัดตรังคภูมิพุทธาวาส\nตำบล กันตัง อำเภอ กันตัง \nจังหวัด ตรัง 92110 ',
+      background_color: '#FFF8F0',
+      surface_color: '#FFFFFF',
+      text_color: '#8B4513',
+      primary_action_color: '#D4AF37',
+      secondary_action_color: '#B8962E'
+    };
+
+    // Heritage pages content
+    const heritageContent = {
+      ubosot: {
+        title: 'อุโบสถ',
+        icon: `<svg class="w-16 h-16 text-gold mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3L2 9l10 6 10-6-10-6z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2 17l10 6 10-6"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2 13l10 6 10-6"/>
+        </svg>`,
+        image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663371388691/tlfoYnenWmEsXGtg.jpg',
+        content: `
+          <p class="text-gray-600 leading-relaxed mb-4">
+            อุโบสถ (พระอุโบสถ) เป็นอาคารหลักของวัด ใช้สำหรับประกอบพิธีสำคัญทางศาสนา เช่น การอุปสมบท และประกอบศาสนกิจต่างๆ สร้างขึ้นเมื่อ พ.ศ. 2476 มีหลังคากระเบื้องแบบไทย และโครงสร้างก่ออิฐถือปูน แข็งแรงมีลวดลายฉลุและศิลปกรรมไทยที่สวยงาม
+          </p>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            อุโบสถของวัดตรังคภูมิพุทธาวาสเป็นสถาปัตยกรรมที่งดงาม สร้างขึ้นด้วยศิลปกรรมไทยโบราณที่มีความประณีต ภายในประดิษฐานพระพุทธรูปศักดิ์สิทธิ์ที่ชาวบ้านให้ความเคารพนับถือ
+          </p>
+          <div class="bg-white rounded-lg p-4 border-l-4 border-gold">
+            <p class="font-medium text-wood">📍 ตั้งอยู่ใจกลางวัด</p>
+            <p class="text-gray-500 text-sm">เปิดให้เข้าชม: 06:00 - 18:00 น.</p>
+          </div>
+        `
+      },
+      elephant: {
+        title: 'ช้างสิงขร',
+        icon: `<svg class="w-16 h-16 text-gold mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20 12c0-4-3-8-8-8s-8 4-8 8c0 2 1 4 2 5v3h2v-2h8v2h2v-3c1-1 2-3 2-5z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M16 12h.01"/>
+        </svg>`,
+        image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663371388691/QznVbBDTcthBSQVg.jpg',
+        content: `
+          <p class="text-gray-600 leading-relaxed mb-4">
+            พระประธานหินอ่อนและพระพุทธรูปคู่ ภายในอุโบสถประดิษฐาน พระพุทธรูปหินอ่อนแกะสลัก ปางมารวิชัย หน้าตักกว้างประมาณ 43 นิ้ว นำมาจากประเทศพม่า มีรูปพระสาวกอีก 2 องค์อยู่ข้างๆ
+          </p>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            นอกจากนี้ยังมี รูปช้างและรูปสิงห์คู่ละหนึ่งคู่ ผลงานหินอ่อนที่ตกแต่งไว้อย่างงดงามซึ่งเป็นเอกลักษณ์ของวัด ช้างและสิงห์เป็นสัญลักษณ์ของความเป็นสิริมงคลและการคุ้มครองในพุทธศาสนา
+          </p>
+        `
+      },
+      cafe: {
+        title: 'คาเฟ่วัด (มองดูบัว)',
+        icon: `<svg class="w-16 h-16 text-gold mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h.01M10 10h.01M12 14c1.5 0 2.5-1 2.5-1s-1 1.5-2.5 1.5S9.5 13 9.5 13s1 1 2.5 1z"/>
+          <circle cx="7" cy="6" r="2"/>
+          <circle cx="17" cy="6" r="2"/>
+        </svg>`,
+        image: 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663371388691/hbPcIQpUmTsvshaZ.jpeg',
+        content: `
+          <p class="text-gray-600 leading-relaxed mb-4">
+            คาเฟ่วัดตรังคภูมิพุทธาวาส (Mongdoobua - มองดูบัว) เป็นสถานที่พักผ่อนสำหรับผู้มาเยือนวัด โดยให้ดื่มกาแฟฟรี หรือแล้วแต่จะทำบุญ
+          </p>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            เป็นสถานที่ที่สงบร่มรื่น มีบัวบานสวยงาม เหมาะสำหรับนั่งจิบกาแฟและสมาธิ ชื่อ "มองดูบัว" มาจากสถานที่นี้ที่เหมาะสำหรับการนั่งมองดูบัวบานในสระน้ำ เป็นสถานที่ที่ช่วยให้ผู้มาเยือนได้ปฏิบัติธรรมและพบกับความสงบของใจ
+          </p>
+        `
+      },
+      heritage_item: {
+        title: 'มรดกวัฒนธรรม',
+        icon: `<svg class="w-16 h-16 text-gold mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3"/>
+        </svg>`,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7NMb-OeZ0Wls9VhjIyNk0mz8879ImErJT5Q&s',
+        content: `
+          <p class="text-gray-600 leading-relaxed mb-4">
+            วัดตรังคภูมิพุทธาวาสเป็นแหล่งรวมมรดกทางวัฒนธรรมที่สำคัญของจังหวัดตรัง ทั้งในด้านสถาปัตยกรรม ประติมากรรม และประเพณีท้องถิ่นที่สืบทอดกันมาอย่างยาวนาน
+          </p>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            วัดนี้ถูกขึ้นทะเบียนเป็นโบราณสถานโดยกรมศิลปากร เพื่อรักษาและอนุรักษ์มรดกทางวัฒนธรรมให้คงอยู่สืบไป เป็นสถานที่ที่สำคัญสำหรับการศึกษาเรียนรู้เกี่ยวกับประวัติศาสตร์และวัฒนธรรมไทยใต้
+          </p>
+        `
+      }
+    };
+
+    // Siamsee Functions
+    function showSiamseeModal() {
+      document.getElementById('siamsee-modal').classList.add('show');
+      document.getElementById('siamsee-result').classList.add('hidden');
+    }
+
+    function closeSiamseeModal() {
+      document.getElementById('siamsee-modal').classList.remove('show');
+    }
+
+    function shakeSimsee() {
+      const container = document.querySelector('.siamsee-container');
+      container.style.animation = 'none';
+      setTimeout(() => {
+        container.style.animation = 'shake 0.6s ease-in-out';
+      }, 10);
+
+      setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * siamseeData.length);
+        const result = siamseeData[randomIndex];
+        
+        document.getElementById('siamsee-number').textContent = result.number;
+        document.getElementById('siamsee-text').textContent = result.text;
+        document.getElementById('siamsee-desc').textContent = result.desc || '';
+        document.getElementById('siamsee-result').classList.remove('hidden');
+      }, 600);
+    }
+
+    function resetSimsee() {
+      document.getElementById('siamsee-result').classList.add('hidden');
+      document.querySelector('.siamsee-container').style.animation = 'none';
+    }
+
+    // Heritage Functions
+    let currentDate = new Date();
+    const thaiMonths = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+    const templeEvents = {
+      1: [{ day: 1, name: 'วันขึ้นปีใหม่', color: 'bg-red-500' }],
+      2: [{ day: 12, name: 'วันมาฆบูชา', color: 'bg-amber-500' }],
+      4: [{ day: 13, name: 'วันสงกรานต์', color: 'bg-blue-500' }],
+      5: [{ day: 11, name: 'วันวิสาขบูชา', color: 'bg-amber-500' }],
+      7: [{ day: 10, name: 'วันอาสาฬหบูชา', color: 'bg-amber-500' }, { day: 11, name: 'วันเข้าพรรษา', color: 'bg-orange-500' }],
+      10: [{ day: 7, name: 'วันออกพรรษา', color: 'bg-orange-500' }]
+    };
+
+    function renderCalendar() {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      const thaiYear = year + 543;
+      
+      document.getElementById('calendar-month').textContent = `${thaiMonths[month]} ${thaiYear}`;
+      
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      
+      const grid = document.getElementById('calendar-grid');
+      grid.innerHTML = '';
+      
+      for (let i = 0; i < firstDay; i++) {
+        grid.innerHTML += '<div class="h-10"></div>';
+      }
+      
+      const monthEvents = templeEvents[month + 1] || [];
+      
+      for (let day = 1; day <= daysInMonth; day++) {
+        const event = monthEvents.find(e => e.day === day);
+        const dayOfWeek = (firstDay + day - 1) % 7;
+        const textColor = dayOfWeek === 0 ? 'text-red-500' : (dayOfWeek === 6 ? 'text-blue-500' : 'text-wood');
+        
+        let dayHtml = `
+          <div class="h-10 flex items-center justify-center rounded-lg ${event ? event.color + ' text-white font-bold' : 'hover:bg-gold/20'} ${textColor} cursor-pointer transition-colors relative group">
+            ${day}
+            ${event ? `<div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10">${event.name}</div>` : ''}
+          </div>
+        `;
+        grid.innerHTML += dayHtml;
+      }
+      
+      const eventsList = document.getElementById('events-list');
+      if (monthEvents.length > 0) {
+        eventsList.innerHTML = monthEvents.map(e => `
+          <div class="flex items-center gap-3">
+            <div class="w-3 h-3 ${e.color} rounded-full"></div>
+            <span class="text-gray-600">${e.day} ${thaiMonths[month]} - ${e.name}</span>
+          </div>
+        `).join('');
+      } else {
+        eventsList.innerHTML = '<p class="text-gray-400">ไม่มีกิจกรรมในเดือนนี้</p>';
+      }
+    }
+
+    function changeMonth(delta) {
+      currentDate.setMonth(currentDate.getMonth() + delta);
+      renderCalendar();
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function showHeritagePage(pageId) {
+      const content = heritageContent[pageId];
+      if (!content) return;
+      
+      document.getElementById('heritage').classList.add('hidden');
+      document.getElementById('heritage-detail').classList.remove('hidden');
+      
+      document.getElementById('heritage-content').innerHTML = `
+        <div class="text-center mb-6">
+          ${content.icon}
+          <h2 class="text-2xl md:text-3xl font-bold text-wood">${content.title}</h2>
+        </div>
+        <div class="bg-white rounded-lg p-6">
+          ${content.content}
+        </div>
+        <<div class="bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl h-96 overflow-hidden flex items-center justify-center mt-6 border-4 border-gold/30">
+
+          <img src="${content.image}" alt="${content.title}" class="w-full h-full object-cover">
+        </div>
+      `;
+      
+      document.getElementById('heritage-detail').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function hideHeritagePage() {
+      document.getElementById('heritage-detail').classList.add('hidden');
+      document.getElementById('heritage').classList.remove('hidden');
+      document.getElementById('heritage').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function onConfigChange(config) {
+      const templeName = config.temple_name || defaultConfig.temple_name;
+      const templeNameEn = config.temple_name_en || defaultConfig.temple_name_en;
+      const phone = config.contact_phone || defaultConfig.contact_phone;
+      const address = config.contact_address || defaultConfig.contact_address;
+      
+      document.getElementById('header-temple-name').textContent = templeName;
+      document.getElementById('header-temple-name-en').textContent = templeNameEn;
+      document.getElementById('home-temple-name').textContent = templeName;
+      document.getElementById('home-temple-name-en').textContent = templeNameEn;
+      document.getElementById('footer-temple-name').textContent = templeName;
+      
+      document.getElementById('contact-phone').textContent = phone;
+      document.getElementById('contact-address').innerHTML = address.replace(/\n/g, '<br>');
+      
+      const bgColor = config.background_color || defaultConfig.background_color;
+      document.body.style.backgroundColor = bgColor;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
+          },
+          {
+            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+            set: (value) => { config.primary_action_color = value; window.elementSdk.setConfig({ primary_action_color: value }); }
+          },
+          {
+            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+            set: (value) => { config.secondary_action_color = value; window.elementSdk.setConfig({ secondary_action_color: value }); }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['temple_name', config.temple_name || defaultConfig.temple_name],
+        ['temple_name_en', config.temple_name_en || defaultConfig.temple_name_en],
+        ['contact_phone', config.contact_phone || defaultConfig.contact_phone],
+        ['contact_address', config.contact_address || defaultConfig.contact_address]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    renderCalendar();
+  </script>
+ </body>
+</html>
